@@ -32,6 +32,7 @@ let endTime = null;
 let playerName = '';
 let playerAge = 0;
 let userAnswers = [];
+let currentDate = new Date().toLocaleDateString();
 
 // Shared list of all possible suggestions for all questions
 const allSahabahSuggestions = [
@@ -44,8 +45,8 @@ const allSahabahSuggestions = [
     "Umm Kulthum"
 ];
 
-// Sample Questions - Replace with your actual questions about Sahabah
-// Each question has different versions for different age groups
+// Sample Questions - We'll use only 5 questions per day
+// Get a subset of questions to use for today's quiz
 const questionsData = [
     {
         text: {
@@ -91,103 +92,16 @@ const questionsData = [
         },
         answer: "Aisha bint Abu Bakr",
         suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the first wife of Prophet Muhammad ﷺ who supported him when he received the first revelation?",
-            teens: "Who was the first person to believe in Prophet Muhammad's ﷺ message and was his first wife?",
-            adults: "Who was Prophet Muhammad's ﷺ first wife who supported him financially and emotionally during the early days of Islam?"
-        },
-        answer: "Khadijah bint Khuwaylid",
-        suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the freed slave who became the first muezzin (caller to prayer) in Islam?",
-            teens: "Who was chosen by Prophet Muhammad ﷺ to be the first person to call the adhan in Islam?",
-            adults: "Which former slave from Abyssinia had such a beautiful voice that he was chosen to be the first muezzin in Islam?"
-        },
-        answer: "Bilal ibn Rabah",
-        suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the companion known as 'The Sword of Allah' and was an excellent military commander?",
-            teens: "Which military commander was undefeated in battle and was given the title 'The Sword of Allah'?",
-            adults: "Which companion was initially opposed to Islam but later became one of its greatest generals with the title 'Sayfullah' (Sword of Allah)?"
-        },
-        answer: "Khalid ibn Al-Walid",
-        suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the companion from Persia who suggested digging a trench to defend Medina?",
-            teens: "Which Persian companion suggested the strategy of digging a trench during the Battle of the Trench?",
-            adults: "Which companion traveled extensively seeking truth, from Persia to Syria to Medina, and suggested the trench defense strategy?"
-        },
-        answer: "Salman Al-Farisi",
-        suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the companion who memorized and taught many sayings of Prophet Muhammad ﷺ?",
-            teens: "Which companion narrated the most hadiths and was known for his excellent memory?",
-            adults: "Which companion formed a group dedicated to memorizing hadith, lived in Bahrain, and narrated over 5,000 hadiths?"
-        },
-        answer: "Abu Hurairah",
-        suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the young cousin of Prophet Muhammad ﷺ who became a great scholar of the Quran?",
-            teens: "Which young cousin of Prophet Muhammad ﷺ was called 'The Scholar of the Ummah' and 'The Interpreter of the Quran'?",
-            adults: "Which cousin did Prophet Muhammad ﷺ embrace and pray for saying, 'O Allah, give him understanding of the religion and teach him interpretation'?"
-        },
-        answer: "Abdullah ibn Abbas",
-        suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the daughter of Prophet Muhammad ﷺ who married Ali?",
-            teens: "Which daughter of Prophet Muhammad ﷺ is known as 'The Leader of the Women of Paradise'?",
-            adults: "Which daughter of Prophet Muhammad ﷺ was known for her resemblance to her father in speech and manners and was married to Ali?"
-        },
-        answer: "Fatimah",
-        suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the mother of Prophet Muhammad ﷺ?",
-            teens: "Who was the mother of Prophet Muhammad ﷺ who passed away when he was only six years old?",
-            adults: "Which noble woman from Banu Zuhrah was the mother of Prophet Muhammad ﷺ, who died near Abwa while returning from Yathrib?"
-        },
-        answer: "Aminah bint Wahb",
-        suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the companion who was known for his generosity and helped finance the Muslim army?",
-            teens: "Which wealthy companion spent all his wealth in the way of Allah and was titled 'The Generous One'?",
-            adults: "Which companion was asked by Prophet Muhammad ﷺ 'What have you left for your family?' and replied 'Allah and His Messenger'?"
-        },
-        answer: "Uthman ibn Affan",
-        suggestions: allSahabahSuggestions
-    },
-    {
-        text: {
-            kids: "Who was the first child to accept Islam?",
-            teens: "Who was the young cousin of Prophet Muhammad ﷺ who was the first child to accept Islam?",
-            adults: "Which cousin of Prophet Muhammad ﷺ was raised in his household, was the first child to accept Islam, and later became the fourth Caliph?"
-        },
-        answer: "Ali ibn Abi Talib",
-        suggestions: allSahabahSuggestions
     }
+    // Note: Only using 5 questions as requested
+    // You can add more questions here and the code will automatically use the first 5
 ];
 
 // Initialize the quiz
 function init() {
-    // DEVELOPER FUNCTION: Uncomment the next line to clear the leaderboard data
-    // clearLeaderboardData();
+    // DEVELOPER FUNCTION: Reset leaderboard - commented out as requested
+    // To use, uncomment the next line when needed
+    //clearLeaderboardData();
     
     // Set up event listeners
     startQuizButton.addEventListener('click', startQuiz);
@@ -196,11 +110,27 @@ function init() {
     restartQuizButton.addEventListener('click', restartQuiz);
     answerInput.addEventListener('input', handleInput);
     
-    // Set total questions
-    totalQuestionsSpan.textContent = questionsData.length;
+    // Set total questions to 5 (or the actual number of questions if less than 5)
+    const numberOfQuestions = Math.min(questionsData.length, 5);
+    totalQuestionsSpan.textContent = numberOfQuestions;
+    
+    // Check if we have a new date (for daily reset)
+    checkForDailyReset();
     
     // Load leaderboard from localStorage
     loadLeaderboard();
+}
+
+// Check for daily reset of attempts
+function checkForDailyReset() {
+    const lastQuizDate = localStorage.getItem('ramadanQuizDate');
+    
+    // If it's a new day, clear the attempts
+    if (lastQuizDate !== currentDate) {
+        localStorage.setItem('ramadanQuizDate', currentDate);
+        localStorage.removeItem('ramadanQuizPlayedUsers');
+        console.log('Daily reset performed - cleared attempts for new day');
+    }
 }
 
 // Developer function to clear leaderboard data
@@ -227,16 +157,16 @@ function startQuiz() {
         return;
     }
     
-    // Check if this user has played before
+    // Check if this user has played today
     const playedUsers = JSON.parse(localStorage.getItem('ramadanQuizPlayedUsers')) || [];
     const userIdentifier = `${playerName}-${playerAge}`;
     
     if (playedUsers.includes(userIdentifier)) {
-        alert('You have already played this quiz. Each person can only play once.');
+        alert('You have already played today\'s quiz. Please come back tomorrow for a new quiz!');
         return;
     }
     
-    // Add user to played list
+    // Add user to played list for today
     playedUsers.push(userIdentifier);
     localStorage.setItem('ramadanQuizPlayedUsers', JSON.stringify(playedUsers));
     
@@ -333,18 +263,31 @@ function goToNextQuestion() {
     // Save user answer
     const userAnswer = answerInput.value.trim();
     const correctAnswer = questionsData[currentQuestionIndex].answer;
-    const isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
     
+    // Check if answer was given
+    const isAnswered = userAnswer.length > 0;
+    const isCorrect = isAnswered && userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+    
+    // Updated scoring system: +4 for correct, -1 for wrong, 0 for unattempted
+    let questionScore = 0;
+    if (isCorrect) {
+        questionScore = 4;
+    } else if (isAnswered) {
+        questionScore = -1;
+    }
+    
+    // Update total score
+    score += questionScore;
+    
+    // Save the answer data
     userAnswers.push({
         question: questionText.textContent,
         userAnswer: userAnswer,
         correctAnswer: correctAnswer,
-        isCorrect: isCorrect
+        isCorrect: isCorrect,
+        isAnswered: isAnswered,
+        score: questionScore
     });
-    
-    if (isCorrect) {
-        score++;
-    }
     
     // Add swipe animation
     quizScreen.classList.add('swipe-left');
@@ -355,7 +298,7 @@ function goToNextQuestion() {
         // Move to next question or finish quiz
         currentQuestionIndex++;
         
-        if (currentQuestionIndex < questionsData.length) {
+        if (currentQuestionIndex < Math.min(questionsData.length, 5)) {
             showQuestion(currentQuestionIndex);
             quizScreen.classList.add('swipe-right');
             setTimeout(() => {
@@ -374,6 +317,9 @@ function finishQuiz() {
     endTime = new Date();
     const timeTaken = Math.floor((endTime - startTime) / 1000); // in seconds
     
+    // Make sure score is never negative
+    score = Math.max(score, 0);
+    
     // Update results screen
     resultNameSpan.textContent = playerName;
     scoreSpan.textContent = score;
@@ -382,7 +328,7 @@ function finishQuiz() {
     // Show answer review
     displayAnswerReview();
     
-    // Update leaderboard
+    // Update leaderboard with cumulative score
     updateLeaderboard(playerName, score, timeTaken);
     
     // Switch to results screen
@@ -406,17 +352,30 @@ function displayAnswerReview() {
         questionText.textContent = answer.question;
         
         const answerText = document.createElement('div');
+        let scoreText = '';
+        
         if (answer.isCorrect) {
             answerText.className = 'answer-text correct';
             answerText.textContent = `Correct! Your answer: ${answer.userAnswer}`;
-        } else {
+            scoreText = '+4 points';
+        } else if (answer.isAnswered) {
             answerText.className = 'answer-text incorrect';
-            answerText.textContent = `Incorrect. Your answer: ${answer.userAnswer || '(No answer)'} | Correct answer: ${answer.correctAnswer}`;
+            answerText.textContent = `Incorrect. Your answer: ${answer.userAnswer} | Correct answer: ${answer.correctAnswer}`;
+            scoreText = '-1 point';
+        } else {
+            answerText.className = 'answer-text unattempted';
+            answerText.textContent = `Not attempted. Correct answer: ${answer.correctAnswer}`;
+            scoreText = '0 points';
         }
+        
+        const pointsText = document.createElement('div');
+        pointsText.className = 'points-text';
+        pointsText.textContent = scoreText;
         
         reviewItem.appendChild(questionNumber);
         reviewItem.appendChild(questionText);
         reviewItem.appendChild(answerText);
+        reviewItem.appendChild(pointsText);
         
         answersReview.appendChild(reviewItem);
     });
@@ -427,13 +386,32 @@ function updateLeaderboard(name, score, time) {
     // Get existing leaderboard
     let leaderboardData = JSON.parse(localStorage.getItem('ramadanQuizLeaderboard')) || [];
     
-    // Add new entry
-    leaderboardData.push({
-        name: name,
-        score: score,
-        time: time,
-        date: new Date().toLocaleDateString()
-    });
+    // Check if user already exists in leaderboard
+    const existingEntryIndex = leaderboardData.findIndex(entry => 
+        entry.name === name && entry.age === playerAge
+    );
+    
+    if (existingEntryIndex !== -1) {
+        // Update existing entry with accumulated score
+        leaderboardData[existingEntryIndex].score += score;
+        leaderboardData[existingEntryIndex].totalAttempts += 1;
+        leaderboardData[existingEntryIndex].lastAttemptDate = currentDate;
+        
+        // Update best time if current time is better
+        if (time < leaderboardData[existingEntryIndex].time) {
+            leaderboardData[existingEntryIndex].time = time;
+        }
+    } else {
+        // Add new entry
+        leaderboardData.push({
+            name: name,
+            age: playerAge,
+            score: score,
+            time: time,
+            totalAttempts: 1,
+            lastAttemptDate: currentDate
+        });
+    }
     
     // Sort by score (descending) and time (ascending)
     leaderboardData.sort((a, b) => {
@@ -442,9 +420,6 @@ function updateLeaderboard(name, score, time) {
         }
         return a.time - b.time;
     });
-    
-    // Keep only top 10 entries
-    leaderboardData = leaderboardData.slice(0, 10);
     
     // Save to localStorage
     localStorage.setItem('ramadanQuizLeaderboard', JSON.stringify(leaderboardData));
@@ -481,7 +456,7 @@ function displayLeaderboard(leaderboardData) {
         
         const playerScore = document.createElement('div');
         playerScore.className = 'player-score';
-        playerScore.textContent = `${entry.score}/${questionsData.length} (${formatTime(entry.time)})`;
+        playerScore.textContent = `${entry.score} pts (${formatTime(entry.time)})`;
         
         leaderboardItem.appendChild(rank);
         leaderboardItem.appendChild(playerInfo);
@@ -530,4 +505,3 @@ function restartQuiz() {
 
 // Initialize the quiz when the page loads
 document.addEventListener('DOMContentLoaded', init);
-    
