@@ -33,6 +33,17 @@ let playerName = '';
 let playerAge = 0;
 let userAnswers = [];
 
+// Shared list of all possible suggestions for all questions
+const allSahabahSuggestions = [
+    "Abu Bakr", "Umar ibn Al-Khattab", "Uthman ibn Affan", "Ali ibn Abi Talib",
+    "Aisha bint Abu Bakr", "Khadijah bint Khuwaylid", "Bilal ibn Rabah", "Khalid ibn Al-Walid",
+    "Salman Al-Farisi", "Abu Hurairah", "Abdullah ibn Abbas", "Fatimah",
+    "Aminah bint Wahb", "Hamza ibn Abdul-Muttalib", "Zayd ibn Harithah", "Sa'd ibn Abi Waqqas",
+    "Abdullah ibn Masud", "Talha ibn Ubaydullah", "Abu Dharr al-Ghifari", "Asma bint Abu Bakr",
+    "Abu Ubaidah ibn al-Jarrah", "Muadh ibn Jabal", "Halimah Sa'diyah", "Ruqayyah",
+    "Umm Kulthum"
+];
+
 // Sample Questions - Replace with your actual questions about Sahabah
 // Each question has different versions for different age groups
 const questionsData = [
@@ -43,7 +54,7 @@ const questionsData = [
             adults: "Who was known as 'As-Siddiq' and accompanied Prophet Muhammad ﷺ during the Hijrah to Medina?"
         },
         answer: "Abu Bakr",
-        suggestions: ["Abu Bakr", "Umar", "Uthman", "Ali"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -52,7 +63,7 @@ const questionsData = [
             adults: "During whose caliphate did Islam expand rapidly and the Islamic calendar was established?"
         },
         answer: "Umar ibn Al-Khattab",
-        suggestions: ["Umar ibn Al-Khattab", "Abu Bakr", "Uthman", "Ali"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -61,7 +72,7 @@ const questionsData = [
             adults: "Which Caliph was known as 'Dhun-Nurayn' (possessor of two lights) and standardized the Quran's text?"
         },
         answer: "Uthman ibn Affan",
-        suggestions: ["Uthman ibn Affan", "Abu Bakr", "Umar", "Ali"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -70,7 +81,7 @@ const questionsData = [
             adults: "Who was the fourth Caliph, known for his wisdom, knowledge and was the first young boy to accept Islam?"
         },
         answer: "Ali ibn Abi Talib",
-        suggestions: ["Ali ibn Abi Talib", "Umar", "Uthman", "Abu Bakr"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -79,7 +90,7 @@ const questionsData = [
             adults: "Which wife of Prophet Muhammad ﷺ was a scholar who narrated thousands of hadiths and lived many years after him?"
         },
         answer: "Aisha bint Abu Bakr",
-        suggestions: ["Aisha bint Abu Bakr", "Khadijah", "Hafsa", "Zaynab"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -88,7 +99,7 @@ const questionsData = [
             adults: "Who was Prophet Muhammad's ﷺ first wife who supported him financially and emotionally during the early days of Islam?"
         },
         answer: "Khadijah bint Khuwaylid",
-        suggestions: ["Khadijah bint Khuwaylid", "Aisha", "Fatimah", "Hafsa"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -97,7 +108,7 @@ const questionsData = [
             adults: "Which former slave from Abyssinia had such a beautiful voice that he was chosen to be the first muezzin in Islam?"
         },
         answer: "Bilal ibn Rabah",
-        suggestions: ["Bilal ibn Rabah", "Zayd ibn Harithah", "Abu Dharr", "Salman Al-Farisi"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -106,7 +117,7 @@ const questionsData = [
             adults: "Which companion was initially opposed to Islam but later became one of its greatest generals with the title 'Sayfullah' (Sword of Allah)?"
         },
         answer: "Khalid ibn Al-Walid",
-        suggestions: ["Khalid ibn Al-Walid", "Sa'd ibn Abi Waqqas", "Abu Ubaidah", "Amr ibn Al-As"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -115,7 +126,7 @@ const questionsData = [
             adults: "Which companion traveled extensively seeking truth, from Persia to Syria to Medina, and suggested the trench defense strategy?"
         },
         answer: "Salman Al-Farisi",
-        suggestions: ["Salman Al-Farisi", "Suhayb Ar-Rumi", "Abu Dharr", "Ammar ibn Yasir"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -124,7 +135,7 @@ const questionsData = [
             adults: "Which companion formed a group dedicated to memorizing hadith, lived in Bahrain, and narrated over 5,000 hadiths?"
         },
         answer: "Abu Hurairah",
-        suggestions: ["Abu Hurairah", "Abdullah ibn Masud", "Abdullah ibn Abbas", "Anas ibn Malik"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -133,7 +144,7 @@ const questionsData = [
             adults: "Which cousin did Prophet Muhammad ﷺ embrace and pray for saying, 'O Allah, give him understanding of the religion and teach him interpretation'?"
         },
         answer: "Abdullah ibn Abbas",
-        suggestions: ["Abdullah ibn Abbas", "Abdullah ibn Umar", "Zayd ibn Thabit", "Muadh ibn Jabal"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -142,7 +153,7 @@ const questionsData = [
             adults: "Which daughter of Prophet Muhammad ﷺ was known for her resemblance to her father in speech and manners and was married to Ali?"
         },
         answer: "Fatimah",
-        suggestions: ["Fatimah", "Ruqayyah", "Umm Kulthum", "Zaynab"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -151,7 +162,7 @@ const questionsData = [
             adults: "Which noble woman from Banu Zuhrah was the mother of Prophet Muhammad ﷺ, who died near Abwa while returning from Yathrib?"
         },
         answer: "Aminah bint Wahb",
-        suggestions: ["Aminah bint Wahb", "Halimah", "Barakah", "Fatimah bint Asad"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -160,7 +171,7 @@ const questionsData = [
             adults: "Which companion was asked by Prophet Muhammad ﷺ 'What have you left for your family?' and replied 'Allah and His Messenger'?"
         },
         answer: "Uthman ibn Affan",
-        suggestions: ["Uthman ibn Affan", "Abdur-Rahman ibn Awf", "Talha ibn Ubaydullah", "Zubayr ibn Al-Awwam"]
+        suggestions: allSahabahSuggestions
     },
     {
         text: {
@@ -169,12 +180,15 @@ const questionsData = [
             adults: "Which cousin of Prophet Muhammad ﷺ was raised in his household, was the first child to accept Islam, and later became the fourth Caliph?"
         },
         answer: "Ali ibn Abi Talib",
-        suggestions: ["Ali ibn Abi Talib", "Zayd ibn Harithah", "Abdullah ibn Abbas", "Anas ibn Malik"]
+        suggestions: allSahabahSuggestions
     }
 ];
 
 // Initialize the quiz
 function init() {
+    // DEVELOPER FUNCTION: Uncomment the next line to clear the leaderboard data
+    // clearLeaderboardData();
+    
     // Set up event listeners
     startQuizButton.addEventListener('click', startQuiz);
     beginButton.addEventListener('click', beginQuiz);
@@ -186,6 +200,14 @@ function init() {
     totalQuestionsSpan.textContent = questionsData.length;
     
     // Load leaderboard from localStorage
+    loadLeaderboard();
+}
+
+// Developer function to clear leaderboard data
+function clearLeaderboardData() {
+    localStorage.removeItem('ramadanQuizLeaderboard');
+    console.log('Leaderboard cleared successfully!');
+    // Reload the leaderboard display (empty now)
     loadLeaderboard();
 }
 
@@ -204,6 +226,19 @@ function startQuiz() {
         alert('Please enter a valid age between 5 and 100.');
         return;
     }
+    
+    // Check if this user has played before
+    const playedUsers = JSON.parse(localStorage.getItem('ramadanQuizPlayedUsers')) || [];
+    const userIdentifier = `${playerName}-${playerAge}`;
+    
+    if (playedUsers.includes(userIdentifier)) {
+        alert('You have already played this quiz. Each person can only play once.');
+        return;
+    }
+    
+    // Add user to played list
+    playedUsers.push(userIdentifier);
+    localStorage.setItem('ramadanQuizPlayedUsers', JSON.stringify(playedUsers));
     
     // Show instructions screen
     switchScreen(welcomeScreen, instructionsScreen);
