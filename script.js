@@ -101,7 +101,7 @@ const questionsData = [
 function init() {
     // DEVELOPER FUNCTION: Reset leaderboard - commented out as requested
     // To use, uncomment the next line when needed
-    //clearLeaderboardData();
+    clearLeaderboardData();
     
     // Set up event listeners
     startQuizButton.addEventListener('click', startQuiz);
