@@ -386,3 +386,25 @@ body {
 .swipe-right {
     animation: swipeRight 0.3s forwards;
 }
+/* Add these styles to your existing CSS file */
+
+/* For unattempted answers */
+.review-item .unattempted {
+    color: #636e72;
+    font-weight: 500;
+}
+
+/* For points text */
+.points-text {
+    margin-top: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0984e3;
+}
+
+/* Update leaderboard item to make space for points */
+.leaderboard-item .player-score {
+    font-weight: 500;
+    min-width: 120px;
+    text-align: right;
+}
