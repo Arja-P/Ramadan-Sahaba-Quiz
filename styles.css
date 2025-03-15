@@ -1,0 +1,388 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f6fa;
+    color: #333;
+    line-height: 1.6;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                      url('https://img.freepik.com/free-vector/islamic-pattern-background-with-mosque-silhouette_1048-13040.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Header Styles */
+.header {
+    background: linear-gradient(135deg, #74b9ff, #0984e3);
+    color: white;
+    padding: 25px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.ramadan-decoration {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.crescent {
+    font-size: 24px;
+    color: #ffeaa7;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #ffeaa7, 0 0 10px #ffeaa7;
+    }
+    to {
+        text-shadow: 0 0 15px #ffeaa7, 0 0 20px #ffeaa7;
+    }
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Content Styles */
+.content {
+    padding: 25px 20px;
+}
+
+.content p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+/* Input Styles */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #2d3436;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #0984e3;
+    outline: none;
+}
+
+/* Button Styles */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #0984e3, #74b9ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(9, 132, 227, 0.3);
+}
+
+.btn i {
+    margin-left: 8px;
+}
+
+/* Instructions List */
+.instructions-list {
+    list-style-type: none;
+    margin: 20px 0;
+}
+
+.instructions-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f2f6;
+    display: flex;
+    align-items: center;
+}
+
+.instructions-list li:last-child {
+    border-bottom: none;
+}
+
+.instructions-list li i {
+    margin-right: 15px;
+    color: #0984e3;
+    font-size: 1.2rem;
+}
+
+/* Quiz Screen Styles */
+.quiz-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.progress, .timer {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+.timer i {
+    margin-right: 5px;
+}
+
+.question-container {
+    margin-bottom: 30px;
+}
+
+.question-container h2 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #2d3436;
+}
+
+.answer-input {
+    position: relative;
+}
+
+.suggestions-dropdown {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #dfe6e9;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 150px;
+    overflow-y: auto;
+    display: none;
+    z-index: 10;
+}
+
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.suggestion-item:hover {
+    background-color: #f1f2f6;
+}
+
+/* Results Screen */
+.results-summary {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.score-display {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 15px;
+}
+
+.score, .time {
+    padding: 12px 20px;
+    background-color: #f1f2f6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.score i {
+    color: #fdcb6e;
+}
+
+.time i {
+    color: #0984e3;
+}
+
+.review-container, .leaderboard-container {
+    margin-bottom: 25px;
+}
+
+.review-container h3, .leaderboard-container h3 {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    color: #2d3436;
+}
+
+.answers-review {
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.review-item {
+    padding: 10px;
+    border-bottom: 1px solid #dfe6e9;
+    font-size: 0.9rem;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-item .correct {
+    color: #00b894;
+    font-weight: 500;
+}
+
+.review-item .incorrect {
+    color: #d63031;
+    font-weight: 500;
+}
+
+.leaderboard {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-bottom: 1px solid #dfe6e9;
+    font-size: 0.9rem;
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-item .rank {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #0984e3;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.leaderboard-item .rank.gold {
+    background-color: #fdcb6e;
+}
+
+.leaderboard-item .rank.silver {
+    background-color: #b2bec3;
+}
+
+.leaderboard-item .rank.bronze {
+    background-color: #e17055;
+}
+
+.leaderboard-item .player-info {
+    flex-grow: 1;
+    padding-left: 15px;
+}
+
+.leaderboard-item .player-score {
+    font-weight: 500;
+}
+
+/* Screen Management */
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        height: 100%;
+        border-radius: 0;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .score-display {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Swipe Animation */
+@keyframes swipeLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes swipeRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.swipe-left {
+    animation: swipeLeft 0.3s forwards;
+}
+
+.swipe-right {
+    animation: swipeRight 0.3s forwards;
+}

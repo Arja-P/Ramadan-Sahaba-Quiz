@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Sahabah Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="header">
+                <h1>Ramadan Sahabah Quiz</h1>
+                <div class="ramadan-decoration">
+                    <div class="crescent">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <p>Assalamu alaikum! Welcome to our special Ramadan quiz about the Sahabah (companions) of Prophet Muhammad ﷺ.</p>
+                <p>Test your knowledge about these blessed individuals who were closest to our beloved Prophet ﷺ.</p>
+                
+                <div class="input-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                </div>
+                
+                <div class="input-group">
+                    <label for="age">Your Age:</label>
+                    <input type="number" id="age" min="5" max="100" placeholder="Enter your age">
+                </div>
+                
+                <button id="start-quiz" class="btn">Begin Quiz <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+        
+        <!-- Instructions Screen -->
+        <div id="instructions-screen" class="screen">
+            <div class="header">
+                <h1>How to Play</h1>
+            </div>
+            
+            <div class="content">
+                <ul class="instructions-list">
+                    <li><i class="fas fa-info-circle"></i> You will be asked 15 questions about different Sahabah.</li>
+                    <li><i class="fas fa-clock"></i> Your time will be recorded for the leaderboard.</li>
+                    <li><i class="fas fa-keyboard"></i> Type your answer or select from suggestions.</li>
+                    <li><i class="fas fa-hand-point-right"></i> Swipe or click the arrow to move to the next question.</li>
+                </ul>
+                
+                <button id="begin-button" class="btn">Let's Start! <i class="fas fa-play"></i></button>
+            </div>
+        </div>
+        
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="header">
+                <div class="quiz-info">
+                    <div class="progress">
+                        <span id="current-question">1</span>/<span id="total-questions">15</span>
+                    </div>
+                    <div class="timer">
+                        <i class="fas fa-stopwatch"></i> <span id="time-display">00:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="question-container">
+                    <h2 id="question-text">Question text appears here</h2>
+                    
+                    <div class="answer-input">
+                        <input type="text" id="answer-input" placeholder="Type your answer">
+                        <div id="suggestions" class="suggestions-dropdown"></div>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button id="next-question" class="btn">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="header">
+                <h1>Quiz Complete!</h1>
+            </div>
+            
+            <div class="content">
+                <div class="results-summary">
+                    <p>Congratulations <span id="result-name">Name</span>!</p>
+                    <div class="score-display">
+                        <div class="score">
+                            <i class="fas fa-star"></i>
+                            <span id="score">0</span>/15
+                        </div>
+                        <div class="time">
+                            <i class="fas fa-stopwatch"></i>
+                            <span id="final-time">00:00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-container">
+                    <h3>Review Your Answers:</h3>
+                    <div id="answers-review" class="answers-review">
+                        <!-- Answers will be populated here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="leaderboard-container">
+                    <h3>Leaderboard</h3>
+                    <div id="leaderboard" class="leaderboard">
+                        <!-- Leaderboard will be populated here by JavaScript -->
+                    </div>
+                </div>
+                
+                <button id="restart-quiz" class="btn">Play Again <i class="fas fa-redo"></i></button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript will be linked here -->
+    <script src="script.js"></script>
+</body>
+</html>
