@@ -99,9 +99,8 @@ const questionsData = [
 
 // Initialize the quiz
 function init() {
-    // DEVELOPER FUNCTION: Reset leaderboard - commented out as requested
-    // To use, uncomment the next line when needed
-    clearLeaderboardData();
+    // DEVELOPER FUNCTION: Reset all data - uncomment to use
+    // clearAllData();
     
     // Set up event listeners
     startQuizButton.addEventListener('click', startQuiz);
@@ -133,12 +132,31 @@ function checkForDailyReset() {
     }
 }
 
-// Developer function to clear leaderboard data
-function clearLeaderboardData() {
+// UPDATED: Function to clear all data completely
+function clearAllData() {
+    // Remove all quiz-related data from localStorage
     localStorage.removeItem('ramadanQuizLeaderboard');
-    console.log('Leaderboard cleared successfully!');
+    localStorage.removeItem('ramadanQuizDate');
+    localStorage.removeItem('ramadanQuizPlayedUsers');
+    
+    // Reset in-memory variables
+    currentQuestionIndex = 0;
+    score = 0;
+    userAnswers = [];
+    
+    // Clear input fields
+    if (nameInput) nameInput.value = '';
+    if (ageInput) ageInput.value = '';
+    
+    console.log('ALL quiz data cleared successfully!');
+    
     // Reload the leaderboard display (empty now)
     loadLeaderboard();
+    
+    // Return to welcome screen
+    if (welcomeScreen && resultsScreen) {
+        switchScreen(resultsScreen, welcomeScreen);
+    }
 }
 
 // Start Quiz - Collect player info and show instructions
@@ -503,5 +521,29 @@ function restartQuiz() {
     ageInput.value = playerAge;
 }
 
+// Add a button to the HTML for complete reset (admin function)
+function addResetButton() {
+    const container = document.querySelector('.container');
+    
+    // Create a small button that could be placed at bottom of welcome screen
+    const resetButton = document.createElement('button');
+    resetButton.id = 'reset-all-data';
+    resetButton.textContent = 'Reset All Data (Admin)';
+    resetButton.style.cssText = 'position: absolute; bottom: 10px; right: 10px; font-size: 10px; padding: 2px 6px; background: #ddd; border: 1px solid #aaa; color: #333; cursor: pointer; border-radius: 4px;';
+    
+    resetButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (confirm('WARNING: This will completely reset ALL quiz data including leaderboard and played users. Continue?')) {
+            clearAllData();
+            alert('All data has been reset successfully!');
+        }
+    });
+    
+    container.appendChild(resetButton);
+}
+
 // Initialize the quiz when the page loads
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    addResetButton(); // Add the reset button when page loads
+});
