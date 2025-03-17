@@ -408,3 +408,33 @@ body {
     min-width: 120px;
     text-align: right;
 }
+/* Audio Player Styles */
+.audio-player {
+    margin-bottom: 20px;
+}
+
+.audio-btn {
+    background-color: #0984e3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.audio-btn:hover {
+    background-color: #0069d9;
+}
+
+.audio-btn i {
+    font-size: 1.1rem;
+}
+
+.audio-btn.playing {
+    background-color: #00b894;
+}
